@@ -16,3 +16,4 @@ ENV VIRTUAL_ENV=/app/.venv
 ENV PATH=/app/.venv/bin:$PATH
 
 ENTRYPOINT ["rnsd"]
+CMD ["-s"]
