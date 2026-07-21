@@ -6,7 +6,7 @@ ENV VIRTUAL_ENV=/app/.venv
 RUN python -m venv $VIRTUAL_ENV
 ENV PATH=$VIRTUAL_ENV/bin:$PATH
 
-RUN pip install --no-cache-dir rns
+RUN pip install --no-cache-dir rns lxmf
 
 FROM dhi.io/python:3.14-alpine
 
