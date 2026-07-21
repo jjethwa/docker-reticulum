@@ -1,3 +1,5 @@
+[![Docker Image CI](https://github.com/jjethwa/docker-reticulum/actions/workflows/docker-image.yml/badge.svg)](https://github.com/jjethwa/docker-reticulum/actions/workflows/docker-image.yml)
+
 # docker-reticulum
 Docker container running rnsd
 
