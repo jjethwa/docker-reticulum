@@ -4,7 +4,7 @@
 Docker container running rnsd
 
 ## Command line example
-```docker run --rm --net=host -v /local/path/to/.reticulum:/home/nonroot/.reticulum -t jordan/reticulum:latest```
+```docker run --rm --net=host -v /path/to/local/.reticulum:/home/nonroot/.reticulum -t jordan/reticulum:latest```
 
 ## systemd unit
 ```
