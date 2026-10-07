@@ -1,27 +1,34 @@
-name: Docker Image CI
+name: Build and push container images
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   push_to_registry:
-    name: Push Docker image to Docker Hub
+    name: Build container image and push to container repositories
+    permissions:
+      contents: read
+      packages: write
     runs-on: ubuntu-latest
     steps:
     - name: Check out the repo
-      uses: actions/checkout@v5
+      uses: actions/checkout@v7
 
-    - name: Log in to Docker Hub
-      uses: docker/login-action@v4
-      with:
-        username: ${{secrets.DOCKER_USER}}
-        password: ${{secrets.DOCKER_PASSWORD}}
+    - name: Build and push image
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        RNS_BUILD_CR_HOST: ${{vars.CR_HOST}}
+        RNS_BUILD_CR_IMAGE: ${{vars.CR_IMAGE}}
+        RNS_BUILD_CR_PASSWORD: ${{secrets.CR_PASSWORD}}
+        RNS_BUILD_CR_REPOSITORY: ${{vars.CR_REPOSITORY}}
+        RNS_BUILD_CR_USER: ${{vars.CR_USER}}
+        RNS_BUILD_DOCKER_IMAGE: ${{vars.DOCKER_IMAGE}}
+        RNS_BUILD_DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        RNS_BUILD_DOCKER_REPOSITORY: ${{vars.DOCKER_REPOSITORY}}
+        RNS_BUILD_DOCKER_USER: ${{vars.DOCKER_USER}}
+      run: ./build.bash
 
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag jordan/reticulum:latest
-
-    - name: Docker Push
-      run: docker push jordan/reticulum:latest
